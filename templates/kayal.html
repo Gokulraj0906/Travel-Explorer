@@ -1,0 +1,1821 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Explorer - Modern Travel Agency</title>
+    
+    <!-- External Libraries -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" href="https://cdn2.iconfinder.com/data/icons/travel-time/64/Travel-1024.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #667eea;
+            --secondary-color: #764ba2;
+            --accent-color: #f093fb;
+            --text-dark: #2d3748;
+            --text-light: #718096;
+            --bg-light: #f7fafc;
+            --white: #ffffff;
+            --shadow: 0 10px 30px rgba(0,0,0,0.1);
+            --gradient: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            --gradient-accent: linear-gradient(135deg, var(--accent-color) 0%, var(--primary-color) 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        /* Modern Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 2rem;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 800;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: var(--gradient);
+            color: white;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .mobile-menu {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--primary-color);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2073&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero-content p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 5rem 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title h2 {
+            font-size: 3rem;
+            font-weight: 700;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+
+        .section-title p {
+            font-size: 1.2rem;
+            color: var(--text-light);
+        }
+
+        /* Booking Form */
+        .booking-form {
+            background: white;
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            margin-top: -100px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+        }
+
+        .form-group input, .form-group select {
+            padding: 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        /* Packages Grid */
+        .packages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .package-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+        }
+
+        .package-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .package-image {
+            height: 250px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .package-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--gradient-accent);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .package-content {
+            padding: 2rem;
+        }
+
+        .package-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        .package-description {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+        }
+
+        .package-features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .package-features li {
+            padding: 0.5rem 0;
+            color: var(--text-light);
+        }
+
+        .package-features li i {
+            color: var(--primary-color);
+            margin-right: 0.5rem;
+        }
+
+        .package-price {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .price {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--primary-color);
+        }
+
+        .price-old {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            text-decoration: line-through;
+        }
+
+        /* Services Grid */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .service-card {
+            background: white;
+            padding: 3rem 2rem;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .service-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 2rem;
+            font-size: 2rem;
+            color: white;
+        }
+
+        /* Auth Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 2000;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 3rem;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+            animation: modalSlideIn 0.3s ease;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 2rem;
+            cursor: pointer;
+            color: var(--text-light);
+        }
+
+        .auth-tabs {
+            display: flex;
+            margin-bottom: 2rem;
+            border-radius: 10px;
+            overflow: hidden;
+            background: var(--bg-light);
+        }
+
+        .auth-tab {
+            flex: 1;
+            padding: 1rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .auth-tab.active {
+            background: var(--gradient);
+            color: white;
+        }
+
+        .auth-form {
+            display: none;
+        }
+
+        .auth-form.active {
+            display: block;
+        }
+
+        /* Admin Dashboard */
+        .admin-dashboard {
+            display: none;
+            min-height: 100vh;
+            background: var(--bg-light);
+            padding-top: 80px;
+        }
+
+        .admin-sidebar {
+            position: fixed;
+            left: 0;
+            top: 80px;
+            width: 250px;
+            height: calc(100vh - 80px);
+            background: white;
+            box-shadow: var(--shadow);
+            padding: 2rem 0;
+        }
+
+        .admin-content {
+            margin-left: 250px;
+            padding: 2rem;
+        }
+
+        .admin-nav {
+            list-style: none;
+        }
+
+        .admin-nav li {
+            padding: 1rem 2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .admin-nav li:hover {
+            background: var(--bg-light);
+            color: var(--primary-color);
+        }
+
+        .admin-nav li.active {
+            background: var(--gradient);
+            color: white;
+        }
+
+        .admin-section {
+            display: none;
+        }
+
+        .admin-section.active {
+            display: block;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--text-light);
+            font-weight: 600;
+        }
+
+        /* User Profile */
+        .user-profile {
+            position: relative;
+            display: none;
+        }
+
+        .user-profile.active {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            cursor: pointer;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+        }
+
+        .user-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: white;
+            box-shadow: var(--shadow);
+            border-radius: 10px;
+            min-width: 200px;
+            display: none;
+            z-index: 1001;
+        }
+
+        .user-dropdown.active {
+            display: block;
+        }
+
+        .user-dropdown a {
+            display: block;
+            padding: 1rem;
+            text-decoration: none;
+            color: var(--text-dark);
+            transition: all 0.3s ease;
+        }
+
+        .user-dropdown a:hover {
+            background: var(--bg-light);
+            color: var(--primary-color);
+        }
+
+        /* Loading States */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Success/Error Messages */
+        .message {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            font-weight: 500;
+            z-index: 3000;
+            animation: slideInRight 0.3s ease;
+        }
+
+        @keyframes slideInRight {
+            from { transform: translateX(100%); }
+            to { transform: translateX(0); }
+        }
+
+        .message.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .message.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        /* Tables */
+        .data-table {
+            background: white;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            margin-top: 2rem;
+        }
+
+        .data-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .data-table th,
+        .data-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .data-table th {
+            background: var(--bg-light);
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .data-table tr:hover {
+            background: var(--bg-light);
+        }
+
+        .status-badge {
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-confirmed {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-completed {
+            background: #cce5ff;
+            color: #004085;
+        }
+
+        .status-cancelled {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        /* Form Styles */
+        .form-container {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            margin-top: 2rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .packages-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .admin-sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+            }
+
+            .admin-sidebar.active {
+                transform: translateX(0);
+            }
+
+            .admin-content {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="nav-container">
+            <div class="logo">Travel Explorer</div>
+            
+            <nav class="nav-links">
+                <a href="#home" onclick="showHome()">Home</a>
+                <a href="#packages">Packages</a>
+                <a href="#services">Services</a>
+            </nav>
+            
+            <div class="auth-buttons">
+                <div class="user-profile">
+                    <div class="user-avatar">U</div>
+                    <span class="user-name">User</span>
+                    <div class="user-dropdown">
+                        <a href="#" onclick="showProfile()">My Bookings</a>
+                        <a href="#" onclick="showDashboard()" class="admin-only" style="display: none;">Admin Dashboard</a>
+                        <a href="#" onclick="logout()">Logout</a>
+                    </div>
+                </div>
+                <button class="btn btn-outline auth-btn" onclick="showAuthModal('login')">Login</button>
+                <button class="btn btn-primary auth-btn" onclick="showAuthModal('register')">Sign Up</button>
+            </div>
+            
+            <div class="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <div id="mainContent">
+        <!-- Hero Section -->
+        <section class="hero" id="home">
+            <div class="hero-content">
+                <h1>Discover Amazing Places</h1>
+                <p>Explore the world's most beautiful destinations with our expertly crafted travel packages</p>
+                <div class="hero-buttons">
+                    <button class="btn btn-primary" onclick="document.getElementById('packages').scrollIntoView()">Explore Now</button>
+                    <button class="btn btn-outline" style="color: white;">Take me to Tour</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Booking Form -->
+        <div class="section">
+            <div class="container">
+                <form class="booking-form" onsubmit="handleBooking(event)">
+                    <h2 style="text-align: center; margin-bottom: 2rem; color: var(--text-dark);">Book Your Adventure</h2>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Destination</label>
+                            <input type="text" name="destination" placeholder="Where to?" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Guests</label>
+                            <select name="guests" required>
+                                <option value="">Select guests</option>
+                                <option value="1">1 Guest</option>
+                                <option value="2">2 Guests</option>
+                                <option value="3">3 Guests</option>
+                                <option value="4">4+ Guests</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Check-in</label>
+                            <input type="date" name="check_in" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Check-out</label>
+                            <input type="date" name="check_out" required>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%; padding: 1.2rem;">
+                        Book Now
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Packages Section -->
+        <section class="section" id="packages">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Popular Packages</h2>
+                    <p>Discover our most loved travel destinations</p>
+                </div>
+                
+                <div class="packages-grid" id="packagesGrid">
+                    <!-- Packages will be loaded dynamically -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section class="section" id="services" style="background: var(--bg-light);">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Our Services</h2>
+                    <p>Everything you need for the perfect trip</p>
+                </div>
+                
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-hotel"></i>
+                        </div>
+                        <h3>Luxury Hotels</h3>
+                        <p>Premium accommodations with world-class amenities and exceptional service.</p>
+                    </div>
+                    
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-plane"></i>
+                        </div>
+                        <h3>Flight Booking</h3>
+                        <p>Best deals on flights with flexible booking options and 24/7 support.</p>
+                    </div>
+                    
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-map-marked-alt"></i>
+                        </div>
+                        <h3>Tour Guides</h3>
+                        <p>Expert local guides to help you discover hidden gems and authentic experiences.</p>
+                    </div>
+                    
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3>Travel Insurance</h3>
+                        <p>Comprehensive coverage for peace of mind during your adventures.</p>
+                    </div>
+                    
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-car"></i>
+                        </div>
+                        <h3>Transportation</h3>
+                        <p>Reliable and comfortable transportation options for all your travel needs.</p>
+                    </div>
+                    
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <h3>24/7 Support</h3>
+                        <p>Round-the-clock customer support to assist you throughout your journey.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- User Profile Section -->
+    <div id="userProfile" style="display: none; padding-top: 100px; min-height: 100vh; background: var(--bg-light);">
+        <div class="container">
+            <h2>My Bookings</h2>
+            <div class="data-table" id="userBookingsTable">
+                <!-- User bookings will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Auth Modal -->
+    <div class="modal" id="authModal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeAuthModal()">&times;</span>
+            
+            <div class="auth-tabs">
+                <div class="auth-tab active" onclick="switchAuthTab('login')">Login</div>
+                <div class="auth-tab" onclick="switchAuthTab('register')">Register</div>
+            </div>
+            
+            <!-- Login Form -->
+            <form class="auth-form active" id="loginForm" onsubmit="handleLogin(event)">
+                <h2 style="margin-bottom: 2rem; text-align: center;">Welcome Back</h2>
+                <div id="loginMessage"></div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" name="email" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" name="password" placeholder="Enter your password" required>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">
+                    <span class="btn-text">Login</span>
+                    <span class="loading" style="display: none;"></span>
+                </button>
+                <p style="text-align: center; margin-top: 1rem; color: var(--text-light);">
+                    Don't have an account? <a href="#" onclick="switchAuthTab('register')" style="color: var(--primary-color);">Sign up</a>
+                </p>
+            </form>
+            
+            <!-- Register Form -->
+            <form class="auth-form" id="registerForm" onsubmit="handleRegister(event)">
+                <h2 style="margin-bottom: 2rem; text-align: center;">Create Account</h2>
+                <div id="registerMessage"></div>
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" name="name" placeholder="Enter your full name" required>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" name="email" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" name="password" placeholder="Create a password" required>
+                </div>
+                <div class="form-group">
+                    <label>Confirm Password</label>
+                    <input type="password" name="confirmPassword" placeholder="Confirm your password" required>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">
+                    <span class="btn-text">Create Account</span>
+                    <span class="loading" style="display: none;"></span>
+                </button>
+                <p style="text-align: center; margin-top: 1rem; color: var(--text-light);">
+                    Already have an account? <a href="#" onclick="switchAuthTab('login')" style="color: var(--primary-color);">Login</a>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Admin Dashboard -->
+    <div class="admin-dashboard" id="adminDashboard">
+        <div class="admin-sidebar">
+            <ul class="admin-nav">
+                <li class="active" onclick="showAdminSection('overview')">
+                    <i class="fas fa-chart-bar"></i> Overview
+                </li>
+                <li onclick="showAdminSection('bookings')">
+                    <i class="fas fa-calendar"></i> Bookings
+                </li>
+                <li onclick="showAdminSection('packages')">
+                    <i class="fas fa-box"></i> Packages
+                </li>
+                <li onclick="showAdminSection('users')">
+                    <i class="fas fa-users"></i> Users
+                </li>
+                <li onclick="showAdminSection('settings')">
+                    <i class="fas fa-cog"></i> Settings
+                </li>
+            </ul>
+        </div>
+        
+        <div class="admin-content">
+            <!-- Overview Section -->
+            <div class="admin-section active" id="overview">
+                <h2>Dashboard Overview</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number" id="totalBookings">0</div>
+                        <div class="stat-label">Total Bookings</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="totalUsers">0</div>
+                        <div class="stat-label">Total Users</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="totalRevenue">₹0</div>
+                        <div class="stat-label">Total Revenue</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="activePackages">0</div>
+                        <div class="stat-label">Active Packages</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Bookings Section -->
+            <div class="admin-section" id="admin-bookings">
+                <h2>Manage Bookings</h2>
+                <div class="data-table" id="adminBookingsTable">
+                    <!-- Admin bookings table will be loaded here -->
+                </div>
+            </div>
+            
+            <!-- Packages Section -->
+            <div class="admin-section" id="admin-packages">
+                <h2>Manage Packages</h2>
+                <button class="btn btn-primary" onclick="showAddPackageForm()">Add New Package</button>
+                <div class="data-table" id="adminPackagesTable">
+                    <!-- Admin packages table will be loaded here -->
+                </div>
+            </div>
+            
+            <!-- Users Section -->
+            <div class="admin-section" id="admin-users">
+                <h2>Manage Users</h2>
+                <div class="data-table" id="adminUsersTable">
+                    <!-- Admin users table will be loaded here -->
+                </div>
+            </div>
+            
+            <!-- Settings Section -->
+            <div class="admin-section" id="admin-settings">
+                <h2>Settings</h2>
+                <div class="form-container">
+                    <div class="form-group">
+                        <label>Site Name</label>
+                        <input type="text" value="Travel Explorer" id="siteName">
+                    </div>
+                    <div class="form-group">
+                        <label>Contact Email</label>
+                        <input type="email" value="info@travelexplorer.com" id="contactEmail">
+                    </div>
+                    <button class="btn btn-primary" onclick="saveSettings()">Save Settings</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // State management
+        let currentUser = null;
+        let isAdmin = false;
+        let packages = [];
+
+        // API Base URL
+        const API_URL = 'http://localhost:5000/api';
+
+        // Initialize the app
+        document.addEventListener('DOMContentLoaded', () => {
+            loadPackages();
+            checkAuth();
+            setDefaultDates();
+        });
+
+        // Set default dates for booking form
+        function setDefaultDates() {
+            const today = new Date();
+            const checkIn = today.toISOString().split('T')[0];
+            const checkOut = new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+            
+            const checkInInput = document.querySelector('input[name="check_in"]');
+            const checkOutInput = document.querySelector('input[name="check_out"]');
+            
+            if (checkInInput) checkInInput.value = checkIn;
+            if (checkOutInput) checkOutInput.value = checkOut;
+        }
+
+        // Load packages from backend
+        async function loadPackages() {
+            try {
+                const response = await fetch(`${API_URL}/packages`);
+                if (response.ok) {
+                    packages = await response.json();
+                    if (packages.length === 0) {
+                        document.getElementById('packagesGrid').innerHTML = `
+                            <div style="grid-column: 1 / -1; text-align: center; padding: 2rem;">
+                                <h3>No packages available</h3>
+                                <p>Initialize the database to see sample packages.</p>
+                                <button class="btn btn-primary" onclick="seedDatabase()">Initialize Database</button>
+                            </div>
+                        `;
+                    } else {
+                        displayPackages();
+                    }
+                } else {
+                    throw new Error('Failed to load packages');
+                }
+            } catch (error) {
+                console.error('Error loading packages:', error);
+                document.getElementById('packagesGrid').innerHTML = `
+                    <div style="grid-column: 1 / -1; text-align: center; padding: 2rem;">
+                        <h3>Error loading packages</h3>
+                        <p>Please check your connection and try again.</p>
+                        <button class="btn btn-primary" onclick="seedDatabase()">Initialize Database</button>
+                    </div>
+                `;
+            }
+        }
+
+        // Display packages
+        function displayPackages() {
+            const packagesGrid = document.getElementById('packagesGrid');
+            packagesGrid.innerHTML = packages.map(package => `
+                <div class="package-card">
+                    <div class="package-image" style="background-image: url('${package.image}')">
+                        <div class="package-badge">${package.discount}% OFF</div>
+                    </div>
+                    <div class="package-content">
+                        <h3 class="package-title">${package.name}</h3>
+                        <p class="package-description">${package.description}</p>
+                        <ul class="package-features">
+                            ${package.features.map(feature => `
+                                <li><i class="fas fa-check"></i> ${feature}</li>
+                            `).join('')}
+                        </ul>
+                        <div class="package-price">
+                            <div>
+                                <span class="price-old">₹${package.originalPrice}</span>
+                                <div class="price">₹${package.price}</div>
+                            </div>
+                            <button class="btn btn-primary" onclick="bookPackage('${package._id}')">Book Now</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Seed database
+        async function seedDatabase() {
+            try {
+                const response = await fetch(`${API_URL}/seed`, {
+                    method: 'POST'
+                });
+                const data = await response.json();
+                if (response.ok) {
+                    showMessage('Database initialized successfully!', 'success');
+                    loadPackages();
+                } else {
+                    showMessage(data.message || 'Seeding failed', 'error');
+                }
+            } catch (error) {
+                showMessage('Network error during seeding', 'error');
+                console.error('Seeding error:', error);
+            }
+        }
+
+        // Auth functions
+        async function checkAuth() {
+            const token = localStorage.getItem('token');
+            if (token) {
+                try {
+                    const response = await fetch(`${API_URL}/auth/verify`, {
+                        headers: {
+                            'Authorization': `Bearer ${token}`
+                        }
+                    });
+                    if (response.ok) {
+                        const data = await response.json();
+                        currentUser = data.user;
+                        updateUIForAuth();
+                    } else {
+                        localStorage.removeItem('token');
+                    }
+                } catch (error) {
+                    console.error('Auth check failed:', error);
+                    localStorage.removeItem('token');
+                }
+            }
+        }
+
+        function updateUIForAuth() {
+            const authButtons = document.querySelectorAll('.auth-btn');
+            const userProfile = document.querySelector('.user-profile');
+            
+            if (currentUser) {
+                authButtons.forEach(btn => btn.style.display = 'none');
+                userProfile.classList.add('active');
+                userProfile.querySelector('.user-avatar').textContent = currentUser.name[0].toUpperCase();
+                userProfile.querySelector('.user-name').textContent = currentUser.name;
+                
+                if (currentUser.role === 'admin') {
+                    isAdmin = true;
+                    document.querySelector('.admin-only').style.display = 'block';
+                }
+            } else {
+                authButtons.forEach(btn => btn.style.display = 'inline-block');
+                userProfile.classList.remove('active');
+                document.querySelector('.admin-only').style.display = 'none';
+            }
+        }
+
+        // Show auth modal
+        function showAuthModal(type) {
+            document.getElementById('authModal').classList.add('active');
+            if (type === 'register') {
+                switchAuthTab('register');
+            }
+        }
+
+        function closeAuthModal() {
+            document.getElementById('authModal').classList.remove('active');
+        }
+
+        function switchAuthTab(tab) {
+            const tabs = document.querySelectorAll('.auth-tab');
+            const forms = document.querySelectorAll('.auth-form');
+            
+            tabs.forEach(t => t.classList.remove('active'));
+            forms.forEach(f => f.classList.remove('active'));
+            
+            if (tab === 'login') {
+                tabs[0].classList.add('active');
+                forms[0].classList.add('active');
+            } else {
+                tabs[1].classList.add('active');
+                forms[1].classList.add('active');
+            }
+        }
+
+        // Handle login
+        async function handleLogin(event) {
+            event.preventDefault();
+            const form = event.target;
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const btnText = submitBtn.querySelector('.btn-text');
+            const loading = submitBtn.querySelector('.loading');
+            
+            // Show loading state
+            btnText.style.display = 'none';
+            loading.style.display = 'inline-block';
+            submitBtn.disabled = true;
+            
+            const formData = new FormData(form);
+            const email = formData.get('email');
+            const password = formData.get('password');
+            
+            try {
+                const response = await fetch(`${API_URL}/auth/login`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email, password })
+                });
+                
+                const data = await response.json();
+                if (response.ok) {
+                    localStorage.setItem('token', data.token);
+                    currentUser = data.user;
+                    updateUIForAuth();
+                    closeAuthModal();
+                    showMessage('Login successful!', 'success');
+                    form.reset();
+                } else {
+                    showFormMessage('loginMessage', data.message || 'Login failed', 'error');
+                }
+            } catch (error) {
+                showFormMessage('loginMessage', 'Network error', 'error');
+            } finally {
+                // Reset button state
+                btnText.style.display = 'inline';
+                loading.style.display = 'none';
+                submitBtn.disabled = false;
+            }
+        }
+
+        // Handle registration
+        async function handleRegister(event) {
+            event.preventDefault();
+            const form = event.target;
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const btnText = submitBtn.querySelector('.btn-text');
+            const loading = submitBtn.querySelector('.loading');
+            
+            const formData = new FormData(form);
+            const name = formData.get('name');
+            const email = formData.get('email');
+            const password = formData.get('password');
+            const confirmPassword = formData.get('confirmPassword');
+            
+            if (password !== confirmPassword) {
+                showFormMessage('registerMessage', 'Passwords do not match', 'error');
+                return;
+            }
+            
+            // Show loading state
+            btnText.style.display = 'none';
+            loading.style.display = 'inline-block';
+            submitBtn.disabled = true;
+            
+            try {
+                const response = await fetch(`${API_URL}/auth/register`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ name, email, password })
+                });
+                
+                const data = await response.json();
+                if (response.ok) {
+                    showFormMessage('registerMessage', 'Registration successful! Please login.', 'success');
+                    setTimeout(() => {
+                        switchAuthTab('login');
+                        form.reset();
+                    }, 2000);
+                } else {
+                    showFormMessage('registerMessage', data.message || 'Registration failed', 'error');
+                }
+            } catch (error) {
+                showFormMessage('registerMessage', 'Network error', 'error');
+            } finally {
+                // Reset button state
+                btnText.style.display = 'inline';
+                loading.style.display = 'none';
+                submitBtn.disabled = false;
+            }
+        }
+
+        // Handle booking form
+        async function handleBooking(event) {
+            event.preventDefault();
+            if (!currentUser) {
+                showAuthModal('login');
+                return;
+            }
+            
+            const form = event.target;
+            const formData = new FormData(form);
+            const destination = formData.get('destination');
+            const guests = parseInt(formData.get('guests'));
+            const checkIn = formData.get('check_in');
+            const checkOut = formData.get('check_out');
+            
+            try {
+                const response = await fetch(`${API_URL}/bookings`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    },
+                    body: JSON.stringify({
+                        destination,
+                        guests,
+                        check_in: checkIn,
+                        check_out: checkOut
+                    })
+                });
+                
+                const data = await response.json();
+                if (response.ok) {
+                    showMessage('Booking submitted successfully!', 'success');
+                    form.reset();
+                    setDefaultDates();
+                } else {
+                    showMessage(data.message || 'Booking failed', 'error');
+                }
+            } catch (error) {
+                showMessage('Network error during booking', 'error');
+            }
+        }
+
+        // Book a package
+        async function bookPackage(packageId) {
+            if (!currentUser) {
+                showAuthModal('login');
+                return;
+            }
+            
+            const packageData = packages.find(p => p._id === packageId);
+            if (!packageData) {
+                showMessage('Package not found', 'error');
+                return;
+            }
+            
+            try {
+                const bookingData = {
+                    package_id: packageId,
+                    destination: packageData.name,
+                    guests: 2,
+                    check_in: new Date().toISOString().split('T')[0],
+                    check_out: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
+                };
+                
+                const response = await fetch(`${API_URL}/bookings`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    },
+                    body: JSON.stringify(bookingData)
+                });
+                
+                const data = await response.json();
+                if (response.ok) {
+                    showMessage(`Successfully booked ${packageData.name}!`, 'success');
+                } else {
+                    showMessage(data.message || 'Booking failed', 'error');
+                }
+            } catch (error) {
+                showMessage('Network error during booking', 'error');
+            }
+        }
+
+        // Show user profile/bookings
+        async function showProfile() {
+            if (!currentUser) return;
+            
+            document.getElementById('mainContent').style.display = 'none';
+            document.getElementById('userProfile').style.display = 'block';
+            document.getElementById('adminDashboard').style.display = 'none';
+            
+            await loadUserBookings();
+        }
+
+        // Load user bookings
+        async function loadUserBookings() {
+            try {
+                const response = await fetch(`${API_URL}/bookings`, {
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    }
+                });
+                
+                if (response.ok) {
+                    const bookings = await response.json();
+                    displayUserBookings(bookings);
+                }
+            } catch (error) {
+                console.error('Error loading bookings:', error);
+            }
+        }
+
+        // Display user bookings
+        function displayUserBookings(bookings) {
+            const tableContainer = document.getElementById('userBookingsTable');
+            
+            if (bookings.length === 0) {
+                tableContainer.innerHTML = `
+                    <div style="text-align: center; padding: 2rem;">
+                        <h3>No bookings found</h3>
+                        <p>You haven't made any bookings yet.</p>
+                        <button class="btn btn-primary" onclick="showHome()">Browse Packages</button>
+                    </div>
+                `;
+                return;
+            }
+            
+            tableContainer.innerHTML = `
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Destination</th>
+                            <th>Guests</th>
+                            <th>Check-in</th>
+                            <th>Check-out</th>
+                            <th>Status</th>
+                            <th>Date Booked</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${bookings.map(booking => `
+                            <tr>
+                                <td>${booking.destination}</td>
+                                <td>${booking.guests}</td>
+                                <td>${booking.check_in}</td>
+                                <td>${booking.check_out}</td>
+                                <td><span class="status-badge status-${booking.status}">${booking.status.charAt(0).toUpperCase() + booking.status.slice(1)}</span></td>
+                                <td>${new Date(booking.created_at).toLocaleDateString()}</td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            `;
+        }
+
+        // Show home
+        function showHome() {
+            document.getElementById('mainContent').style.display = 'block';
+            document.getElementById('userProfile').style.display = 'none';
+            document.getElementById('adminDashboard').style.display = 'none';
+        }
+
+        // Show admin dashboard
+        async function showDashboard() {
+            if (!isAdmin) return;
+            
+            document.getElementById('mainContent').style.display = 'none';
+            document.getElementById('userProfile').style.display = 'none';
+            document.getElementById('adminDashboard').style.display = 'block';
+            
+            await loadAdminData();
+        }
+
+        // Show admin section
+        function showAdminSection(section) {
+            document.querySelectorAll('.admin-section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.admin-nav li').forEach(l => l.classList.remove('active'));
+            
+            document.getElementById(section === 'bookings' ? 'admin-bookings' : section === 'packages' ? 'admin-packages' : section === 'users' ? 'admin-users' : section === 'settings' ? 'admin-settings' : section).classList.add('active');
+            event.target.closest('li').classList.add('active');
+            
+            // Load section-specific data
+            if (section === 'bookings') {
+                loadAdminBookings();
+            } else if (section === 'packages') {
+                loadAdminPackages();
+            } else if (section === 'users') {
+                loadAdminUsers();
+            }
+        }
+
+        // Load admin data
+        async function loadAdminData() {
+            try {
+                const response = await fetch(`${API_URL}/admin/stats`, {
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    }
+                });
+                
+                if (response.ok) {
+                    const stats = await response.json();
+                    document.getElementById('totalBookings').textContent = stats.totalBookings;
+                    document.getElementById('totalUsers').textContent = stats.totalUsers;
+                    document.getElementById('totalRevenue').textContent = `$${stats.totalRevenue}`;
+                    document.getElementById('activePackages').textContent = stats.activePackages;
+                }
+            } catch (error) {
+                console.error('Error loading admin data:', error);
+            }
+        }
+
+        // Load admin bookings
+        async function loadAdminBookings() {
+            try {
+                const response = await fetch(`${API_URL}/bookings?all=true`, {
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    }
+                });
+                
+                if (response.ok) {
+                    const bookings = await response.json();
+                    displayAdminBookings(bookings);
+                }
+            } catch (error) {
+                console.error('Error loading admin bookings:', error);
+            }
+        }
+
+        // Display admin bookings
+        function displayAdminBookings(bookings) {
+            const tableContainer = document.getElementById('adminBookingsTable');
+            
+            tableContainer.innerHTML = `
+                <table>
+                    <thead>
+                        <tr>
+                            <th>User</th>
+                            <th>Destination</th>
+                            <th>Guests</th>
+                            <th>Check-in</th>
+                            <th>Check-out</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${bookings.map(booking => `
+                            <tr>
+                                <td>${booking.user_id}</td>
+                                <td>${booking.destination}</td>
+                                <td>${booking.guests}</td>
+                                <td>${booking.check_in}</td>
+                                <td>${booking.check_out}</td>
+                                <td><span class="status-badge status-${booking.status}">${booking.status.charAt(0).toUpperCase() + booking.status.slice(1)}</span></td>
+                                <td>
+                                    <select onchange="updateBookingStatus('${booking._id}', this.value)">
+                                        <option value="pending" ${booking.status === 'pending' ? 'selected' : ''}>Pending</option>
+                                        <option value="confirmed" ${booking.status === 'confirmed' ? 'selected' : ''}>Confirmed</option>
+                                        <option value="completed" ${booking.status === 'completed' ? 'selected' : ''}>Completed</option>
+                                        <option value="cancelled" ${booking.status === 'cancelled' ? 'selected' : ''}>Cancelled</option>
+                                    </select>
+                                </td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            `;
+        }
+
+        // Update booking status
+        async function updateBookingStatus(bookingId, status) {
+            try {
+                const response = await fetch(`${API_URL}/bookings/${bookingId}`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    },
+                    body: JSON.stringify({ status })
+                });
+                
+                if (response.ok) {
+                    showMessage('Booking status updated successfully!', 'success');
+                    loadAdminBookings();
+                } else {
+                    showMessage('Failed to update booking status', 'error');
+                }
+            } catch (error) {
+                showMessage('Network error', 'error');
+            }
+        }
+
+        // Load admin packages
+        async function loadAdminPackages() {
+            const tableContainer = document.getElementById('adminPackagesTable');
+            
+            tableContainer.innerHTML = `
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Price</th>
+                            <th>Original Price</th>
+                            <th>Discount</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${packages.map(package => `
+                            <tr>
+                                <td>${package.name}</td>
+                                <td>$${package.price}</td>
+                                <td>$${package.originalPrice}</td>
+                                <td>${package.discount}%</td>
+                                <td>
+                                    <button class="btn btn-outline" onclick="editPackage('${package._id}')">Edit</button>
+                                    <button class="btn btn-primary" onclick="deletePackage('${package._id}')" style="background: #dc3545;">Delete</button>
+                                </td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            `;
+        }
+
+        // Load admin users
+        async function loadAdminUsers() {
+            try {
+                const response = await fetch(`${API_URL}/users`, {
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    }
+                });
+                
+                if (response.ok) {
+                    const users = await response.json();
+                    displayAdminUsers(users);
+                }
+            } catch (error) {
+                console.error('Error loading users:', error);
+            }
+        }
+
+        // Display admin users
+        function displayAdminUsers(users) {
+            const tableContainer = document.getElementById('adminUsersTable');
+            
+            tableContainer.innerHTML = `
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Joined</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${users.map(user => `
+                            <tr>
+                                <td>${user.name}</td>
+                                <td>${user.email}</td>
+                                <td><span class="status-badge ${user.role === 'admin' ? 'status-confirmed' : 'status-pending'}">${user.role}</span></td>
+                                <td>${new Date(user.created_at).toLocaleDateString()}</td>
+                                <td>
+                                    ${user._id !== currentUser.id ? `<button class="btn btn-primary" onclick="deleteUser('${user._id}')" style="background: #dc3545;">Delete</button>` : '<span>Current User</span>'}
+                                </td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            `;
+        }
+
+        // Delete user
+        async function deleteUser(userId) {
+            if (confirm('Are you sure you want to delete this user?')) {
+                try {
+                    const response = await fetch(`${API_URL}/users/${userId}`, {
+                        method: 'DELETE',
+                        headers: {
+                            'Authorization': `Bearer ${localStorage.getItem('token')}`
+                        }
+                    });
+                    
+                    if (response.ok) {
+                        showMessage('User deleted successfully!', 'success');
+                        loadAdminUsers();
+                    } else {
+                        showMessage('Failed to delete user', 'error');
+                    }
+                } catch (error) {
+                    showMessage('Network error', 'error');
+                }
+            }
+        }
+
+        // Utility functions
+        function showMessage(text, type) {
+            const message = document.createElement('div');
+            message.className = `message ${type}`;
+            message.textContent = text;
+            document.body.appendChild(message);
+            
+            setTimeout(() => {
+                message.remove();
+            }, 5000);
+        }
+
+        function showFormMessage(containerId, text, type) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = `<div class="message ${type}">${text}</div>`;
+            
+            setTimeout(() => {
+                container.innerHTML = '';
+            }, 5000);
+        }
+
+        function logout() {
+            localStorage.removeItem('token');
+            currentUser = null;
+            isAdmin = false;
+            updateUIForAuth();
+            showHome();
+            showMessage('Logged out successfully!', 'success');
+        }
+
+        // User dropdown toggle
+        document.addEventListener('click', (e) => {
+            const userProfile = document.querySelector('.user-profile');
+            const dropdown = document.querySelector('.user-dropdown');
+            
+            if (userProfile && userProfile.contains(e.target)) {
+                dropdown.classList.toggle('active');
+            } else {
+                dropdown?.classList.remove('active');
+            }
+        });
+
+        // Mobile menu toggle
+        document.querySelector('.mobile-menu').addEventListener('click', () => {
+            document.querySelector('.nav-links').classList.toggle('active');
+        });
+
+        // Close modal when clicking outside
+        document.addEventListener('click', (e) => {
+            const modal = document.getElementById('authModal');
+            if (e.target === modal) {
+                closeAuthModal();
+            }
+        });
+    </script>
+</body>
+</html>
